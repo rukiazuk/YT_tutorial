@@ -103,7 +103,9 @@ def test_can_delete_task():
     # get the task, check if it is not found
     get_task_response = get_task(task_id)
     # running below print to have exact ststus code printed - it is 2404
-    print(get_task_response.status_code)
+    # print(get_task_response.status_code)
+
+    assert get_task_response.status_code == 404
 #
 #
 #
