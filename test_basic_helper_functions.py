@@ -23,6 +23,7 @@ def test_create_task():
     data = create_task_response.json()
     print(data)
 
+    # extract task id from response
     task_id = data["task"]["task_id"]
     get_task_response = get_task(task_id)
 
@@ -88,9 +89,21 @@ def test_can_list_tasks():
     assert len(tasks) == n
 
 
-
-        
-
+# delete taks
+def test_can_delete_task():
+    # first, create new task 
+    payload = new_task_payload()
+    create_task_response = create_task(payload)
+    assert create_task_response.status_code == 200
+    # extract task id from response
+    task_id = create_task_response.json()["task"]["task_id"]
+    # delete the task
+    delete_task_response = delete_task(task_id)
+    assert delete_task_response.status_code == 200
+    # get the task, check if it is not found
+    get_task_response = get_task(task_id)
+    # running below print to have exact ststus code printed - it is 2404
+    print(get_task_response.status_code)
 #
 #
 #
@@ -119,3 +132,6 @@ def new_task_payload():
         "user_id": user_id,
         "is_done": False
     }
+
+def delete_task(task_id):
+    return requests.delete(ENDPOINT + f"/delete-task/{task_id}")
