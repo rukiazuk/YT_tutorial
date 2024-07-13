@@ -14,7 +14,7 @@ def test_can_call_endopint():
 
 # python -m pytest -v -s to run and print
 
-def test_create_tasK():
+def test_create_task():
     payload = {
         "content": "test content",
         "user_id": "test user_id",
